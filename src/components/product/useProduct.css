@@ -1,0 +1,80 @@
+  /* Product Card */
+  .product {
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  }
+  
+  .product:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Product Image */
+  .product-image {
+    width: 100%;
+    height: 260px;
+    object-fit: contain;
+    background-color: #f9f9f9;
+    padding: 1.5rem;
+  }
+  
+  /* Product Title */
+  .product h4 {
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 1rem 1.2rem;
+    min-height: 4rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex-grow: 1;
+  }
+  
+  /* Buy Button */
+  .product button {
+    background-color: #111;
+    color: white;
+    border: none;
+    width: 100%;
+    padding: 1rem 0;
+    font-size: 0.9rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .product button:hover {
+    background-color: #fa5400; /* Nike's orange accent color */
+  }
+  
+  /* Responsive Adjustments */
+  @media (max-width: 768px) {
+    .shop-display {
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1.5rem;
+      padding: 1rem;
+    }
+    
+    .product-image {
+      height: 200px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .shop-display {
+      grid-template-columns: 1fr;
+      gap: 1.2rem;
+    }
+    
+    .product h4 {
+      font-size: 1rem;
+    }
+  }
