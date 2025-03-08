@@ -7,6 +7,7 @@ import "./App.css";
 const App = () => {
     const [cart, setCart] = useState([]);
     
+
     // Add this useEffect to load cart data on initial render
     useEffect(() => {
         const savedCart = JSON.parse(localStorage.getItem("cart")) || [];
@@ -15,14 +16,14 @@ const App = () => {
     
     console.log(cart);
 
-    const handleCartChange = (cartItem) => {
-        setCart(cartItem);
-    };
+    // const handleCartChange = (cartItem) => {
+    //     setCart(cartItem);
+    // };
 
     return (
         <div className="App">
             <Navigation cart={cart} setCart={setCart}/>
-            <Outlet context={{handleCartChange}}/>
+            <Outlet context={{cart, setCart}}/>
         </div>
     );
 }
