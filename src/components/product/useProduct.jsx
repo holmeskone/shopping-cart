@@ -30,7 +30,7 @@ const useProductInfo = () => {
 };
 
 const AllProducts = () => {
-  const { handleCartChange } = useOutletContext(); // Add: Get handleCartChange from context
+  const { cart, setCart } = useOutletContext(); // Add: Get handleCartChange from context
   const { products, error, loading } = useProductInfo();
   
   const addToCart = (productId) => {
@@ -42,7 +42,7 @@ const AllProducts = () => {
       localStorage.setItem("cart", JSON.stringify(cart));
       
       // Change: Update cart state in App component
-      handleCartChange(cart);
+      setCart(cart);
     }
   }
 
