@@ -16,7 +16,12 @@ const useProductInfo = () => {
         return response.json();
       })
       .then((data) => {
-        setProducts(data); // Change: Directly set products to data
+        let alpha = data.map((catalog) => ({
+          ...catalog,
+          quantity: "0",
+        }));
+      console.log(data)
+        setProducts(alpha); // Change: Directly set products to data
       })
       .catch((error) => {
         setError(error);
@@ -33,8 +38,9 @@ const AllProducts = () => {
   const { cart, setCart } = useOutletContext(); // Add: Get handleCartChange from context
   const { products, error, loading } = useProductInfo();
   
-  const addToCart = (productId) => {
+  const addToCart = (productId, productQuantity) => {
     const product = products.find(p => p.id == productId);
+    product.quantity = productQuantity
     
     if (product) {
       const cart = JSON.parse(localStorage.getItem("cart")) || [];
@@ -55,7 +61,16 @@ const AllProducts = () => {
         <div key={product.id} className="product">
           <img src={product.image} alt={product.title} className="product-image"/>
           <h4>{product.title}</h4>
-          <button id={product.id} onClick={(event) => addToCart(event.target.id)}>Buy now</button>
+          <h5>{product.price}</h5>
+          <button className="CTA" id={product.id} onClick={(event) => {
+            const quantity = document.getElementById(product.title).value;
+            addToCart(event.target.id,quantity)
+          }}>Buy now</button>
+          <div className="product-quantity">
+            <button>+</button>
+            <input type="number" id={product.title} />
+            <button>-</button>
+          </div>
         </div>
       )
     })
