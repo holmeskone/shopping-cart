@@ -38,7 +38,7 @@
   }
   
   /* Buy Button */
-  .product button {
+  .CTA {
     background-color: #111;
     color: white;
     border: none;
@@ -51,7 +51,7 @@
     transition: background-color 0.2s;
   }
   
-  .product button:hover {
+  .CTA:hover {
     background-color: #fa5400; /* Nike's orange accent color */
   }
   
