@@ -78,3 +78,50 @@
       font-size: 1rem;
     }
   }
+
+  /* Product Quantity (Aligned with Product Card) */
+.shop-product-quantity {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1px solid #ddd;
+  border-radius: 24px;
+  padding: 6px 12px;
+  background: #f9f9f9;
+  width: fit-content;
+  margin: 1rem auto 1rem;
+  transition: border 0.2s ease-in-out;
+}
+
+.shop-product-quantity:hover {
+  border-color: #111;
+}
+
+.shop-product-quantity button {
+  border: none;
+  background: none;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease-in-out;
+}
+
+.shop-product-quantity button:hover {
+  color: #fa5400; /* Nike’s orange accent */
+}
+
+.shop-product-quantity input {
+  width: 40px;
+  text-align: center;
+  border: none;
+  font-size: 16px;
+  font-weight: bold;
+  outline: none;
+  background: transparent;
+}
