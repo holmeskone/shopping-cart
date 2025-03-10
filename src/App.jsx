@@ -14,7 +14,6 @@ const App = () => {
         setCart(savedCart);
     }, []); // Empty dependency array means this runs once when component mounts
     
-    console.log(cart);
 
     // const handleCartChange = (cartItem) => {
     //     setCart(cartItem);
