@@ -3,6 +3,44 @@ import { useOutletContext } from "react-router-dom"; // Add: Import useOutletCon
 
 const Cart = () => {
     const { cart, setCart } = useOutletContext();
+    let cartReplica = [...cart];
+
+function increment(productId){
+    const numericId = productId.replace("increment-", "");
+    const product = cartReplica.find(p => p.id == numericId);
+    let index = cartReplica.indexOf(product)
+    let currentQuantity = parseInt(cartReplica[index].quantity)
+    let newQuantity = (currentQuantity + 1)
+    cartReplica[index].quantity=newQuantity
+    setCart(cartReplica)
+    localStorage.setItem("cart", JSON.stringify(cartReplica));
+}
+
+function decrement(productId) {
+    const numericId = productId.replace("decrement-", "");
+    
+    // Create a deep copy of the cart to avoid mutation issues
+    const cartReplica = JSON.parse(JSON.stringify(cart));
+    
+    const product = cartReplica.find(p => p.id == numericId);
+    if (!product) return;
+    
+    const index = cartReplica.indexOf(product);
+    let currentQuantity = parseInt(cartReplica[index].quantity);
+    
+    if (currentQuantity > 1) {
+      // Decrement the quantity if it's greater than 1
+      cartReplica[index].quantity = currentQuantity - 1;
+    } else {
+      // Remove the product from the cart if quantity would reach 0
+      cartReplica.splice(index, 1);
+    }
+    
+    // Update state and localStorage
+    setCart(cartReplica);
+    localStorage.setItem("cart", JSON.stringify(cartReplica));
+  }
+
 
 const listItems = cart.map((item) => 
 <div key={item.id} className="product-section">
@@ -14,7 +52,14 @@ const listItems = cart.map((item) =>
         <h5 className="product-data-title-category">{item.category}</h5>
     </div>
     <div className="product-quantity">
-        <span className="product-quantity-value">{item.quantity}</span>
+        <h4>Quantity</h4>
+        <div className="quantity-editor">
+            <button className="decrement" id={`decrement-${item.id}`} onClick={event => {
+                decrement(event.target.id)}}>-</button>
+            <span id={item.title} className="product-quantity-value">{item.quantity}</span>
+            <button className="increment" id={`increment-${item.id}`} onClick={event => {
+                increment(event.target.id)}}>+</button>
+        </div>
     </div>
     <div className="product-price">
         <span className="product-price-value">{item.price}</span>
@@ -41,7 +86,7 @@ const Test = ()=> {
  }
 
 let displayItems = <>{listItems}</> 
-let noItems = "sad days"
+let noItems = "nothing in cart..."
 
 
 
