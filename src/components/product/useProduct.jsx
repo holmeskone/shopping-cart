@@ -20,7 +20,6 @@ const useProductInfo = () => {
           ...catalog,
           quantity: "0",
         }));
-      console.log(data)
         setProducts(alpha); // Change: Directly set products to data
       })
       .catch((error) => {
@@ -40,17 +39,29 @@ const AllProducts = () => {
   
   const addToCart = (productId, productQuantity) => {
     const product = products.find(p => p.id == productId);
-    product.quantity = productQuantity
-    
     if (product) {
+      // Get current cart from localStorage
       const cart = JSON.parse(localStorage.getItem("cart")) || [];
-      cart.push(product);
+      
+      // Check if product already exists in cart
+      const existingProductIndex = cart.findIndex(item => item.id == productId);
+      
+      if (existingProductIndex !== -1) {
+        // If product exists, update its quantity
+        cart[existingProductIndex].quantity = parseInt(productQuantity);
+      } else {
+        // If product doesn't exist, add it to cart
+        const productToAdd = {...product, quantity: parseInt(productQuantity)};
+        cart.push(productToAdd);
+      }
+      
+      // Save updated cart to localStorage
       localStorage.setItem("cart", JSON.stringify(cart));
       
-      // Change: Update cart state in App component
+      // Update cart state in App component
       setCart(cart);
     }
-  }
+  };
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>A network error was encountered</p>;
@@ -66,10 +77,8 @@ const AllProducts = () => {
             const quantity = document.getElementById(product.title).value;
             addToCart(event.target.id,quantity)
           }}>Buy now</button>
-          <div className="product-quantity">
-            <button>+</button>
-            <input type="number" id={product.title} />
-            <button>-</button>
+          <div className="shop-product-quantity">
+            <input type="number" placeholder="0" id={product.title} />
           </div>
         </div>
       )
