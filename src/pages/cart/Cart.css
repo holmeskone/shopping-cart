@@ -80,6 +80,11 @@
   overflow: hidden;
 }
 
+.quantity-editor{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
 .product-quantity-value {
   font-size: 1rem;
   font-weight: 600;
